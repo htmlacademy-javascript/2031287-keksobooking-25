@@ -15,7 +15,7 @@ function getRangeMMD(min,max,digits) {
     if(max <= min) {
       max = min;
     }
-    let number = (Math.random() * (max - min + 1)) + min;
+    const number = (Math.random() * (max - min + 1)) + min;
     return number.toFixed(digits);
   } else {
     return 'ERROR: minimum value must be 0';
@@ -23,4 +23,3 @@ function getRangeMMD(min,max,digits) {
 
 
 }
-getRangeMMD(0,10099,10);
