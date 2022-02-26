@@ -20,6 +20,4 @@ function getRangeMMD(min,max,digits) {
   } else {
     return 'ERROR: minimum value must be 0';
   }
-
-
 }
