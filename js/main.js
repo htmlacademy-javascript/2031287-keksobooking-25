@@ -15,7 +15,7 @@ function getRandomPositiveFloat (a, b, digits = 1) {
 }
 
 
-const randomArray = (elements) => elements[getRandomPositiveInteger(0,elements.length - 1)];
+const getRandomArray = (elements) => elements[getRandomPositiveInteger(0,elements.length - 1)];
 
 const randomNumber = getRandomPositiveInteger(0,10);
 
@@ -45,19 +45,18 @@ const getObject = () => ({
   address: `${getRandomPositiveFloat(3565000,3570000,2)  }, ${
     getRandomPositiveFloat(13970000,13980000,3)}`,
   price: getRandomPositiveInteger(1000,10000),
-  type: randomArray(place),
+  type: getRandomArray(place),
   rooms: getRandomPositiveInteger(1,10),
   guests: getRandomPositiveInteger(1,6),
-  checkin: randomArray(checkTime),
-  checkout: randomArray(checkTime),
-  features: randomArray(roomFeatures),
-  description: randomArray(roomDescription),
-  photos: randomArray(roomPhoto),
+  checkin: getRandomArray(checkTime),
+  checkout: getRandomArray(checkTime),
+  features: getRandomArray(roomFeatures),
+  description: getRandomArray(roomDescription),
+  photos: getRandomArray(roomPhoto),
 });
 
 const ads = Array.from({length:10}, getObject);
 
-
-console.log(ads);
+ads;
 
 // Решил сделать другой вариант с добавлением.
