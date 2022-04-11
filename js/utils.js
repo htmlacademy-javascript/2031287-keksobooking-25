@@ -43,8 +43,25 @@ const getCardTitle = (type) => {
   }
 };
 
+const getDisabled = () => {
+  const adForm = document.querySelector('.ad-form');
+  adForm.classList.add('ad-form--disabled');
+  const mapFilters = document.querySelector('.map__filters');
+  mapFilters.classList.add('ad-form--disabled');
+
+};
+
+const getActivated = () => {
+  const adForm = document.querySelector('.ad-form');
+  adForm.classList.remove('ad-form--disabled');
+  const mapFilters = document.querySelector('.map__filters');
+  mapFilters.classList.remove('ad-form--disabled');
+};
+
+
 export {getCardTitle};
 export {getRandomPositiveInteger};
 export {getRandomPositiveFloat};
 export {randomArray};
 export {numberWithZero};
+export {getDisabled, getActivated};

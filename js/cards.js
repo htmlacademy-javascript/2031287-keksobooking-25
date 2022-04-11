@@ -1,11 +1,11 @@
-import {getCardTitle} from './utils';
+import {getCardTitle} from './utils.js';
 import {getObject} from './data.js';
 
-const ads = Array.from({length:2}, getObject);
+const ads = Array.from({length:1}, getObject);
 
 const updatePopup = () => {
   const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-  const similarAds = ads();
+  const similarAds = ads;
   const similarFragment = document.createDocumentFragment();
   const mapCanvas = document.querySelector('#map-canvas');
 
