@@ -1,5 +1,3 @@
-import {getObject} from './data.js';
+import {updatePopup} from './cards.js';
 
-const ads = Array.from({length:10}, getObject);
-
-console.log(ads);
+updatePopup();

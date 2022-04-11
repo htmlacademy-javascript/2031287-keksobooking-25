@@ -1,17 +1,32 @@
+import {getCardTitle} from './utils';
 import {getObject} from './data.js';
 
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const similarAds = getObject();
-const similarFragment = document.createDocumentFragment();
+const ads = Array.from({length:2}, getObject);
 
-similarAds.forEach( ({title, address, price, type, rooms, guests, checkin, checkout, features, descriptions, photos}) => {
+const updatePopup = () => {
+  const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+  const similarAds = ads();
+  const similarFragment = document.createDocumentFragment();
+  const mapCanvas = document.querySelector('#map-canvas');
 
-  const newCard = cardTemplate.cloneNode(true);
+  similarAds.forEach( ({title, address, price, type, rooms, guests, checkin, checkout, features, descriptions, photos, avatar}) => {
 
-  newCard.querySelector('.popup__title').textContent = title;
-  newCard.querySelector('..popup__text--address').textContent = address;
-  newCard.querySelector('.popup__text--price').textContent = price + " ₽/ночь.";
-  newCard.querySelector('.popup__type')
+    const newCard = cardTemplate.cloneNode(true);
 
+    newCard.querySelector('.popup__title').textContent = title;
+    newCard.querySelector('.popup__text--address').textContent = address;
+    newCard.querySelector('.popup__text--price').textContent = `${price} ₽/ночь.`;
+    newCard.querySelector('.popup__type').textContent = getCardTitle(type);
+    newCard.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей.`;
+    newCard.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
+    newCard.querySelector('.popup__features').textContent = features;
+    newCard.querySelector('.popup__description').textContent = descriptions;
+    newCard.querySelector('.popup__photo').src = photos;
+    newCard.querySelector('.popup__avatar').src = avatar;
+    similarFragment.append(newCard);
+  });
 
-})
+  mapCanvas.append(similarFragment);
+};
+
+export {updatePopup};
