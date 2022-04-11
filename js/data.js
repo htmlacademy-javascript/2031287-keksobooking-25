@@ -1,3 +1,21 @@
+import {
+  getRandomPositiveInteger,
+  getRandomPositiveFloat,
+  randomArray,
+  numberWithZero
+} from './utils.js';
+
+const place = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+
+const checkTime = ['12:00', '13:00', '14:00'];
+
+const roomFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator'];
+
+const roomDescription = ['За супер цену', 'Хорошие отзывы', 'Последния возможность'];
+
+const roomPhoto = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
+
+
 const getObject = () => ({
   avatar: `img/avatars/user${  numberWithZero()  }.png`,
   title: 'Аренда',

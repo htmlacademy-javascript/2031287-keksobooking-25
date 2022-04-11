@@ -14,7 +14,6 @@ function getRandomPositiveFloat (a, b, digits = 1) {
   return +result.toFixed(digits);
 }
 
-
 const randomArray = (elements) => elements[getRandomPositiveInteger(0,elements.length - 1)];
 
 const randomNumber = getRandomPositiveInteger(0,10);
@@ -32,8 +31,4 @@ const numberWithZero = () =>  {
 export {getRandomPositiveInteger};
 export {getRandomPositiveFloat};
 export {randomArray};
-export {randomNumber};
 export {numberWithZero};
-
-
-console.log('until.js');
