@@ -58,7 +58,6 @@ const getActivated = () => {
   mapFilters.classList.remove('ad-form--disabled');
 };
 
-
 export {getCardTitle};
 export {getRandomPositiveInteger};
 export {getRandomPositiveFloat};
