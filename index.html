@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="leaflet/leaflet.css">
+  <link rel="stylesheet" href="nouislider/nouislider.css">
   <title>Кексобукинг</title>
 </head>
 <body>
@@ -71,7 +73,7 @@
     <!-- Форма объявления -->
     <section class="notice">
       <h2 class="notice__title">Ваше объявление</h2>
-      <form class="ad-form" method="post" enctype="multipart/form-data" autocomplete="off">
+      <form class="ad-form" action="https://25.javascript.pages.academy/keksobooking" method="post" enctype="multipart/form-data" autocomplete="off">
         <fieldset class="ad-form-header">
           <legend class="ad-form-header__title">Ваша фотография (для карты)</legend>
           <div class="ad-form-header__upload">
@@ -86,12 +88,21 @@
           </div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
-          <label class="ad-form__label" for="title">Заголовок объявления</label>
-          <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио">
+          <label class="ad-form__label" for="title">Заголовок объявления
+          <input required id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио"
+          minlength="30"
+          maxlength="100"
+          data-pristine-required-message="Обязательное поле"
+          data-pristine-minlength-message="Минимальная длина 30 символа"
+          data-pristine-maxlength-message="Максимальная длина 100 символов"
+          ></label>
+          <div class="ad-form__error-text"></div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
-          <label class="ad-form__label" for="address">Адрес (координаты)</label>
-          <input id="address" name="address" type="text">
+          <label class="ad-form__label" for="address">Адрес (координаты)
+          <input required id="address" name="address" type="text"
+          data-pristine-required-message="Обязательное поле"
+          ></label>
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="type">Тип жилья</label>
@@ -104,8 +115,13 @@
           </select>
         </fieldset>
         <fieldset class="ad-form__element">
-          <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000">
+          <label class="ad-form__label" for="price">Цена за ночь, руб.
+            <div style="width: 90% !important; margin-top: 5px; margin-bottom: 5px;"  class="level-form__slider" id="slider"></div>
+          <input class="level-form__value" required id="price" name="price" type="number" placeholder="5000"
+          max="100000"
+          data-pristine-required-message="Обязательное поле"
+          data-pristine-max-message="Максимальное значение — 100 000"
+          ></label>
           <div class="ad-form__slider"></div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
@@ -162,10 +178,10 @@
           <label class="ad-form__label">Фотография жилья</label>
           <div class="ad-form__photo-container">
             <div class="ad-form__upload">
-              <input type="file" id="images" name="images" class="ad-form__input visually-hidden">
+              <input accept="image/png, image/jpg, image/webp, image/jpeg" type="file" id="images" name="images" class="ad-form__input visually-hidden">
               <label for="images" class="ad-form__drop-zone">Загрузить<br>фото...</label>
             </div>
-            <div class="ad-form__photo"></div>
+            <div class="ad-form__photo"><img width="100%" id="preview"></div>
           </div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--submit">
@@ -230,6 +246,12 @@
       <button type="button" class="error__button">Попробовать снова</button>
     </div>
   </template>
+  <style>.pristine-error {
+    color:red;
+  }</style>
+  <script src="leaflet/leaflet.js"></script>
+  <script src="pristine/pristine.min.js"></script>
+  <script src="nouislider/nouislider.js"></script>
   <script type="module" src="js/main.js"></script>
 
 </body>
