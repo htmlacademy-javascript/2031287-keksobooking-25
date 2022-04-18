@@ -1,32 +1,57 @@
-import {getCardTitle} from './utils.js';
-import {getObject} from './data.js';
+import { getCardTitle } from './utils.js';
 
-const ads = Array.from({length:1}, getObject);
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-const updatePopup = () => {
-  const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-  const similarAds = ads;
-  const similarFragment = document.createDocumentFragment();
-  const mapCanvas = document.querySelector('#map-canvas');
-
-  similarAds.forEach( ({title, address, price, type, rooms, guests, checkin, checkout, features, descriptions, photos, avatar}) => {
-
-    const newCard = cardTemplate.cloneNode(true);
-
-    newCard.querySelector('.popup__title').textContent = title;
-    newCard.querySelector('.popup__text--address').textContent = address;
-    newCard.querySelector('.popup__text--price').textContent = `${price} ₽/ночь.`;
-    newCard.querySelector('.popup__type').textContent = getCardTitle(type);
-    newCard.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей.`;
-    newCard.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
-    newCard.querySelector('.popup__features').textContent = features;
-    newCard.querySelector('.popup__description').textContent = descriptions;
-    newCard.querySelector('.popup__photo').src = photos;
-    newCard.querySelector('.popup__avatar').src = avatar;
-    similarFragment.append(newCard);
-  });
-
-  mapCanvas.append(similarFragment);
+/**
+ * Функция, которая скрывает пустые элементы
+ */
+const cardElem = (template, element, data, text) => {
+  // Если есть данные, то прокидываем их в наш элемент
+  if (data) {
+    template.querySelector(element).textContent = text;
+  } else {
+    // Если данных нет, то скрываем элемент
+    template.querySelector(element).classList.add('hidden');
+  }
 };
 
-export {updatePopup};
+/**
+ * Функция рендера popup
+ * @param card - объект с данными, которые нужно отобразить в попапе
+ */
+const renderCards = (card) => {
+  const cardElement = cardTemplate.cloneNode(true);
+  if (card.avatar) {
+    cardElement.querySelector('.popup__avatar').src = `${card.avatar}`;
+  } else {
+    cardElement.querySelector('.popup__avatar').classList.add('hidden');
+  }
+
+  // пробрасываем данные
+  cardElem(cardElement, '.popup__title', card.title, `${card.title}`);
+  cardElem(cardElement, '.popup__text--address', card.address, `${card.address.lat} ${card.address.lng}`);
+  cardElem(cardElement, '.popup__text--price', card.price, `${card.price} ₽/ночь`);
+  cardElem(cardElement, '.popup__type', card.type, getCardTitle(card.type));
+  cardElem(cardElement, '.popup__text--capacity', card.rooms && card.guests, `${card.rooms} комнаты ${card.guests} гостей`);
+  cardElem(cardElement, '.popup__text--time', card.checkin && card.checkout, `Заезд после ${card.checkin}, выезд до ${card.checkout}`);
+  cardElem(cardElement, '.popup__features', card.features, `${card.features}`);
+  cardElem(cardElement, '.popup__description', card.description, `${card.description}`);
+
+  if (card.photos) {
+    const cardPhotos = cardElement.querySelector('.popup__photos');
+    cardPhotos.innerHTML = '';
+    const picture = document.createElement('img');
+    picture.src = card.photos;
+    picture.alt = 'Фото жилья';
+    picture.width = '45';
+    picture.height = '40';
+    picture.classList.add('popup__photo');
+    cardPhotos.append(picture);
+  } else {
+    cardElement.querySelector('.popup__photo').classList.add('hidden');
+  }
+
+  return cardElement;
+};
+
+export {renderCards};
