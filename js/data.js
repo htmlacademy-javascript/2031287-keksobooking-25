@@ -15,12 +15,13 @@ const roomDescription = ['За супер цену', 'Хорошие отзыв�
 
 const roomPhoto = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
-
 const getObject = () => ({
   avatar: `img/avatars/user${  numberWithZero()  }.png`,
   title: 'Аренда',
-  address: `${getRandomPositiveFloat(3565000,3570000,2)  }, ${
-    getRandomPositiveFloat(13970000,13980000,3)}`,
+  address: {
+    lat: getRandomPositiveFloat(35.65000, 35.70000, 5),
+    lng: getRandomPositiveFloat(139.70000, 139.80000, 5),
+  },
   price: getRandomPositiveInteger(1000,10000),
   type: randomArray(place),
   rooms: getRandomPositiveInteger(1,10),
@@ -32,4 +33,6 @@ const getObject = () => ({
   photos: randomArray(roomPhoto),
 });
 
-export {getObject};
+const ads = Array.from({length: 4}, getObject);
+
+export {ads};
